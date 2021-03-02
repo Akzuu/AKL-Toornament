@@ -20,5 +20,5 @@ module.exports = (async () => {
     process.exit(1);
   }
 
-  log.info('Server is up and running!');
+  log.info('AKL-Toornament started successfully!');
 })();
