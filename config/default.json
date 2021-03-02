@@ -1,0 +1,22 @@
+{
+  "port": 3010,
+  "swagger": {
+    "host": "localhost:3010",
+    "schemes": ["http", "https"]
+  },
+  "database": {
+    "mongo": {
+      "options": {
+        "useNewUrlParser": true,
+        "useCreateIndex": true,
+        "useFindAndModify": false,
+        "useUnifiedTopology": true
+      }
+    }
+  },
+  "routePrefix": "/akl-toornament",
+  "fastifyOptions": {
+    "logger": false,
+    "ignoreTrailingSlash": true
+  }
+}

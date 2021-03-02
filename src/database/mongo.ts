@@ -1,13 +1,11 @@
-const mongoose = require('mongoose');
-const config = require('config');
+import config from 'config';
+import mongoose from 'mongoose';
 
-const MONGO_URI = config.get('database.mongo.uri');
-const MONGO_OPTIONS = config.get('database.mongo.options');
+const MONGO_URI: string = config.get('database.mongo.uri');
+const MONGO_OPTIONS: object = config.get('database.mongo.options');
 
 const start = async () => {
   await mongoose.connect(MONGO_URI, MONGO_OPTIONS);
 };
 
-module.exports = {
-  start,
-};
+export default start;

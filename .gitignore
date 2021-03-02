@@ -104,4 +104,7 @@ dist
 .tern-port
 
 # Config
-**/local.js
+**/local.json
+
+# Build
+build/*
