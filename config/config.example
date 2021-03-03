@@ -1,0 +1,7 @@
+{
+  "database": {
+    "mongo": {
+      "uri": "mongodb://localhost:27018/akl-toornament"
+    }
+  }
+}
