@@ -2,7 +2,8 @@
   "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
     "outDir": "./build",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": ["src/**/*", "src/config/*.json"],
   "exclude": ["node_modules"],

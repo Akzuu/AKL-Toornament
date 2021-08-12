@@ -1,16 +1,17 @@
 import config from 'config';
-import path from 'path';
+import * as path from 'path';
 
 import fastify, { FastifyServerOptions } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
 import fastifyHelmet from 'fastify-helmet';
 import fastifyCors from 'fastify-cors';
 import fastifyAutoLoad from 'fastify-autoload';
+import { ISwaggerOptions } from './types/config.types';
 
 const APPLICATION_PORT: number = config.get('port');
 const ROUTE_PREFIX: string = config.get('routePrefix');
 const FASTIFY_OPTIONS: FastifyServerOptions = config.get('fastifyOptions');
-const SWAGGER_OPTIONS: any = config.get('swagger');
+const SWAGGER_OPTIONS: ISwaggerOptions = config.get('swagger');
 
 const initServer = async () => {
   const server = fastify({
