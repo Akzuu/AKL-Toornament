@@ -9,6 +9,7 @@ const AUTH_POST = bent(AUTH_ENDPOINT, 'POST', 'json', 200);
 const CLIENT_ID = config.get('clientId');
 const CLIENT_SECRET = config.get('clientSecret');
 
+// TODO: Consider making this a class, so we can store access token
 export const getAccessToken = async (scope: ApiScope) => {
   const res = await AUTH_POST('/token',
     `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&scope=${scope}`,
