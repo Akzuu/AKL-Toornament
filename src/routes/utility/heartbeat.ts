@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 
 const schema = {
   description: 'Life check',
@@ -26,7 +26,7 @@ const handler = (req: FastifyRequest, reply: FastifyReply) => {
   });
 };
 
-export default async (fastify: any) => {
+export default async (fastify: FastifyInstance) => {
   fastify.route({
     method: 'GET',
     url: '/heartbeat',

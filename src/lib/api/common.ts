@@ -1,4 +1,4 @@
-import { AuthHandler } from '../auth';
+import { AuthHandler } from '../utils/auth';
 
 export const TOORNAMENT_ENDPOINT = 'https://api.toornament.com/organizer/v2';
 

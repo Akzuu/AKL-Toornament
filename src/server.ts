@@ -7,7 +7,7 @@ import fastifyHelmet from 'fastify-helmet';
 import fastifyCors from 'fastify-cors';
 import fastifyAutoLoad from 'fastify-autoload';
 import { ISwaggerOptions } from './types/config.types';
-import { log } from './lib/log';
+import { log } from './lib/utils/log';
 
 const APPLICATION_PORT: number = config.get('port');
 const ROUTE_PREFIX: string = config.get('routePrefix');
@@ -27,6 +27,15 @@ const initServer = async () => {
 
   // Register plugins and routes
   server
+    .addSchema({
+      $id: 'error',
+      type: 'object',
+      properties: {
+        statusCode: { type: 'number' },
+        error: { type: 'string' },
+        message: { type: 'string' },
+      },
+    })
     .register(fastifySwagger, {
       routePrefix: `${ROUTE_PREFIX}/documentation`,
       swagger: {

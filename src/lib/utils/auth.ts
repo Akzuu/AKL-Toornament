@@ -1,6 +1,6 @@
 import bent from 'bent';
 import config from 'config';
-import { ApiScope, IAuthResponse } from '../types/toornament.types';
+import { ApiScope, IAuthResponse } from '../../types/toornament.types';
 
 const AUTH_ENDPOINT = 'https://api.toornament.com/oauth/v2';
 
@@ -37,7 +37,7 @@ export class AuthHandler {
     return payload;
   }
 
-  public async getAccessToken(scope: ApiScope) {
+  public async getAccessToken(scope: ApiScope): Promise<string> {
     let authInfo = this.authInfos.get(scope);
 
     if (authInfo === undefined || authInfo?.expiryDate < new Date()) {

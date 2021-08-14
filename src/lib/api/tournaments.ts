@@ -1,6 +1,7 @@
 import bent from 'bent';
+import camelcaseKeys from 'camelcase-keys';
 import config from 'config';
-import { ApiScope } from '../../types/toornament.types';
+import { ApiScope, ITournament } from '../../types/toornament.types';
 import { authHandler, TOORNAMENT_ENDPOINT } from './common';
 
 const API_KEY = config.get('apiKey');
@@ -10,11 +11,11 @@ export const getTournaments = async () => {
 
   const token = await authHandler.getAccessToken(ApiScope.OrganizerView);
 
-  const tournaments = await get('/tournaments', undefined, {
+  const result = await get('/tournaments', undefined, {
     'X-Api-Key': API_KEY,
     Authorization: `Bearer ${token}`,
     Range: 'tournaments=0-10',
-  });
+  }) as object[];
 
-  return tournaments;
+  return camelcaseKeys(result) as ITournament[];
 };

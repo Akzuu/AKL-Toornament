@@ -1,4 +1,4 @@
-import { log } from './lib/log';
+import { log } from './lib/utils/log';
 import initServer from './server';
 
 module.exports = (async () => {
