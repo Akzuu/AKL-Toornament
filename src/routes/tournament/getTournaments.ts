@@ -44,8 +44,9 @@ const schema = {
             nullable: true,
           },
           logo: {
-            type: 'string',
+            type: 'object',
             nullable: true,
+            additionalProperties: true,
           },
           registrationEnabled: {
             type: 'boolean',
