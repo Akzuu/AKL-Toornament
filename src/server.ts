@@ -7,6 +7,7 @@ import fastifyHelmet from 'fastify-helmet';
 import fastifyCors from 'fastify-cors';
 import fastifyAutoLoad from 'fastify-autoload';
 import { ISwaggerOptions } from './types/config.types';
+import { log } from './lib/log';
 
 const APPLICATION_PORT: number = config.get('port');
 const ROUTE_PREFIX: string = config.get('routePrefix');
@@ -74,6 +75,22 @@ const initServer = async () => {
     .register(fastifyAutoLoad, {
       dir: path.join(__dirname, 'routes'),
       dirNameRoutePrefix: (folderParent, folderName) => `${ROUTE_PREFIX}/${folderName}`,
+    })
+    .setErrorHandler((error, request, reply) => {
+      log.error({
+        error: error.name,
+        message: error.message,
+        url: request.url,
+        method: request.method,
+        body: request.body,
+        stack: error.stack,
+      });
+
+      reply.status(500).send({
+        statusCode: 500,
+        error: 'Internal Server Error',
+        message: 'Internal Server Error',
+      });
     });
 
   return {
