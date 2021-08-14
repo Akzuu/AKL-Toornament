@@ -18,18 +18,6 @@ interface IAuthInfo {
 export class AuthHandler {
   private authInfos : Map<ApiScope, IAuthInfo> = new Map();
 
-  private async setAccessToken(
-    token: string,
-    expiryDate: Date,
-    scope: ApiScope,
-  ) {
-    this.authInfos.set(scope, {
-      accessToken: token,
-      expiryDate,
-      scope,
-    });
-  }
-
   private async queryAccessToken(scope: ApiScope) {
     const res = await AUTH_POST('/token',
       `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&scope=${scope}`,
@@ -38,21 +26,24 @@ export class AuthHandler {
       }) as IAuthResponse;
 
     const dateNow = new Date();
+    const payload = {
+      accessToken: res.access_token,
+      expiryDate: new Date(dateNow.setSeconds(dateNow.getSeconds() + res.expires_in)),
+      scope: res.scope,
+    };
 
-    this.setAccessToken(
-      res.access_token,
-      new Date(dateNow.setSeconds(dateNow.getSeconds() + res.expires_in)),
-      res.scope,
-    );
+    this.authInfos.set(res.scope, payload);
+
+    return payload;
   }
 
   public async getAccessToken(scope: ApiScope) {
-    const authInfo = this.authInfos.get(scope);
+    let authInfo = this.authInfos.get(scope);
 
     if (authInfo === undefined || authInfo?.expiryDate < new Date()) {
-      await this.queryAccessToken(scope);
+      authInfo = await this.queryAccessToken(scope);
     }
 
-    return this.authInfos.get(scope)?.accessToken;
+    return authInfo.accessToken;
   }
 }
