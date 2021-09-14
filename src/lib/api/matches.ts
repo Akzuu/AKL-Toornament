@@ -9,8 +9,8 @@ const GET_MATCHES = bent(TOORNAMENT_ENDPOINT, 'GET', 206);
 
 const queryMatches = async (
   queriedMatches: any[],
-  token: string, tournamentId:
-  string,
+  token: string,
+  tournamentId: string,
   rangeStart: number,
   rangeEnd: number,
 ) => {

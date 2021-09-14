@@ -1,18 +1,18 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import { getMatches } from '../../lib/api/matches';
-import { Match } from '../../types/toornament.types';
+import { getParticipants } from '../../lib/api/participants';
+import { Participant } from '../../types/toornament.types';
 
 const schema = {
   description: '',
-  summary: 'Get matches',
-  tags: ['Matches'],
+  summary: 'Get participants aka teams and team members',
+  tags: ['Participants'],
   querystring: {
     tournamentId: { type: 'string' },
   },
   response: {
     200: {
       type: 'array',
-      items: Match,
+      items: Participant,
     },
     404: {
       $ref: 'error',
@@ -30,9 +30,9 @@ interface Query {
 const handler = async (req: FastifyRequest, reply: FastifyReply) => {
   const { tournamentId } = req.query as Query;
 
-  const matches = await getMatches(tournamentId);
+  const participants = await getParticipants(tournamentId);
 
-  reply.send(matches);
+  reply.send(participants);
 };
 
 export default async (fastify: FastifyInstance) => {
