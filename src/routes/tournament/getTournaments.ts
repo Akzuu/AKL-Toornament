@@ -1,5 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { getTournaments } from '../../lib/api/tournaments';
+import { Tournament } from '../../types/toornament.types';
 
 const schema = {
   description: '',
@@ -8,72 +9,7 @@ const schema = {
   response: {
     200: {
       type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          name: {
-            type: 'string',
-          },
-          fullName: {
-            type: 'string',
-            nullable: true,
-          },
-          scheduledDateStart: {
-            type: 'string',
-            nullable: true,
-          },
-          timezone: {
-            type: 'string',
-          },
-          public: {
-            type: 'boolean',
-          },
-          size: {
-            type: 'number',
-          },
-          online: {
-            type: 'boolean',
-            nullable: true,
-          },
-          location: {
-            type: 'string',
-            nullable: true,
-          },
-          country: {
-            type: 'string',
-            nullable: true,
-          },
-          logo: {
-            type: 'object',
-            nullable: true,
-            additionalProperties: true,
-          },
-          registrationEnabled: {
-            type: 'boolean',
-          },
-          registrationOpeningDateTime: {
-            type: 'boolean',
-          },
-          registrationClosingDateTime: {
-            type: 'boolean',
-          },
-          id: {
-            type: 'string',
-          },
-          discipline: {
-            type: 'string',
-          },
-          status: {
-            type: 'string',
-          },
-          platforms: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-        },
-      },
+      items: Tournament,
     },
     500: {
       $ref: 'error',
@@ -83,6 +19,7 @@ const schema = {
 
 const handler = async (req: FastifyRequest, reply: FastifyReply) => {
   const tournaments = await getTournaments();
+
   reply.send(tournaments);
 };
 

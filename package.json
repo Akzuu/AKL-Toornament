@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Akzuu/AKL-Toornament#readme",
   "dependencies": {
+    "@sinclair/typebox": "^0.9.16",
     "@types/bent": "^7.3.2",
     "@types/node": "^14.14.31",
     "bent": "^7.3.12",
